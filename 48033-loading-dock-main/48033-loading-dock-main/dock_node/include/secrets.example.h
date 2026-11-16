@@ -7,5 +7,5 @@
 #define WIFI_SSID     "your-network-name"
 #define WIFI_PASSWORD "your-password"
 
-// MQTT commands on .../cmd must carry this as "key". Ask Jon for the real one.
-#define COMMAND_KEY   "ask-jon-for-the-key"
+// MQTT commands on .../cmd must carry this as "key". 
+#define COMMAND_KEY   "Key"
