@@ -11,9 +11,9 @@ Han-na's part. Everything here was tested end to end on 2026-10-08 against a loc
 
 ## 1. InfluxDB Cloud
 
-- Log in to the same InfluxDB Cloud account used in Lab 10. If creating a bucket is refused, the free plan's bucket limit may be reached: delete an old lab bucket first.
+- Log in to the same InfluxDB Cloud account used. If creating a bucket is refused, the free plan's bucket limit may be reached: delete an old lab bucket first.
 - Create a bucket called `dock`.
-- Create an API token with write access to `dock` (for Telegraf), and a read token for Grafana (or one all-access token for both, as in W10 s20).
+- Create an API token with write access to `dock` (for Telegraf), and a read token for Grafana (or one all-access token for both).
 - Note the organisation name, shown at the top left or in the URL.
 
 ## 2. Telegraf
@@ -36,7 +36,7 @@ What the config does, for the video:
 - Two `mqtt_consumer` inputs. One reads telemetry and events, which carry `ts`. The other reads online/offline status, which has no `ts`.
 - `json_time_key = "ts"` makes each point's time the moment the ESP32 measured it, not the moment Telegraf received it.
 - `tag_keys = ["state", "event"]` keeps the two text values as tags. Telegraf's JSON parser drops text fields, and a message with no number left in it is dropped completely. This was tested: an event with only `event` and `ts` never reached InfluxDB. That's why every event also carries `state_code`.
-- `topic_parsing` turns `jon48033/dock/bay1/telemetry` into measurement `telemetry` with tag `bay=bay1`. Adding bay 2 needs no Telegraf change: the `+` in the topic already matches it (W10 s27).
+- `topic_parsing` turns `jon48033/dock/bay1/telemetry` into measurement `telemetry` with tag `bay=bay1`. Adding bay 2 needs no Telegraf change: the `+` in the topic already matches it.
 
 ## 3. Test data without the ESP32
 
@@ -53,7 +53,7 @@ python simulate_dock.py --live            # one truck after another, in real tim
 
 ## 4. Grafana Cloud
 
-- Add the InfluxDB data source exactly as in W10 s18-20: query language Flux, URL `https://us-east-1-1.aws.cloud2.influxdata.com`, organisation, token.
+- Add the InfluxDB data source exactl: query language Flux, URL `https://us-east-1-1.aws.cloud2.influxdata.com`, organisation, token.
 - Dashboards > New > Import > upload `grafana_dashboard.json` > pick that data source.
 - The drop-downs at the top: `Bucket` (default `dock`), `Bay` (filled from the data), `per` (bar width for trucks docked).
 
